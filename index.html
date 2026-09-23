@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A personal field guide for learning artificial intelligence, from foundations to responsible practice.">
+  <title>AI Field Notes | A personal learning journal</title>
+  <style>
+    :root {
+      --ink: #172022;
+      --muted: #657276;
+      --paper: #f6f4ee;
+      --paper-deep: #e9e7df;
+      --white: #fffdf8;
+      --line: #d9ddd5;
+      --coral: #d9644f;
+      --coral-soft: #f2d7cd;
+      --teal: #16736f;
+      --teal-soft: #d7e9e4;
+      --yellow: #e8bd52;
+      --shadow: 0 18px 45px rgba(23, 32, 34, .08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    button { font: inherit; }
+    .shell { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+
+    header {
+      padding: 24px 0 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .wordmark { display: flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 800; letter-spacing: -.03em; }
+    .mark { width: 26px; height: 26px; border-radius: 50% 50% 50% 8px; background: var(--coral); transform: rotate(-12deg); position: relative; }
+    .mark::after { content: ""; position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--paper); top: 8px; left: 9px; }
+    nav { display: flex; gap: 25px; color: var(--muted); font-size: .9rem; font-weight: 650; }
+    nav a { text-decoration: none; }
+    nav a:hover, nav a:focus { color: var(--coral); }
+
+    .hero { padding: 82px 0 76px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 72px; align-items: end; }
+    .eyebrow { margin: 0 0 17px; color: var(--coral); text-transform: uppercase; letter-spacing: .15em; font-size: .72rem; font-weight: 800; }
+    h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; letter-spacing: -.045em; line-height: 1.05; }
+    h1 { max-width: 700px; margin: 0 0 25px; font-size: clamp(3.5rem, 8vw, 6.7rem); }
+    .hero-copy { max-width: 580px; color: var(--muted); font-size: 1.1rem; }
+    .hero-copy strong { color: var(--ink); font-weight: 700; }
+    .signal { border-left: 3px solid var(--teal); padding: 4px 0 4px 23px; }
+    .signal-label { margin: 0 0 7px; color: var(--teal); font-size: .75rem; text-transform: uppercase; letter-spacing: .13em; font-weight: 800; }
+    .signal h2 { margin: 0 0 13px; font-size: 2rem; }
+    .signal p { margin: 0 0 17px; color: var(--muted); }
+    .text-link { color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 4px; font-weight: 750; }
+
+    .section { padding: 72px 0; border-top: 1px solid var(--line); }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 31px; }
+    h2 { margin: 0; font-size: clamp(2.2rem, 4vw, 3.5rem); }
+    .section-heading p { max-width: 390px; margin: 0; color: var(--muted); }
+
+    .focus-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+    .focus-card { min-height: 210px; padding: 27px; background: var(--white); border: 1px solid var(--line); box-shadow: var(--shadow); }
+    .focus-card:nth-child(2) { background: var(--teal-soft); }
+    .focus-card:nth-child(3) { background: var(--coral-soft); }
+    .number { display: block; margin-bottom: 29px; color: var(--coral); font-weight: 800; font-size: .8rem; }
+    .focus-card h3 { margin: 0 0 10px; font-size: 1.65rem; }
+    .focus-card p { margin: 0; color: var(--muted); font-size: .94rem; }
+    .focus-card:nth-child(2) p, .focus-card:nth-child(3) p { color: #405457; }
+
+    .map-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 44px; align-items: start; }
+    .category-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .category { display: flex; gap: 17px; padding: 20px 0; border-top: 1px solid var(--line); }
+    .category-icon { flex: 0 0 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--ink); border-radius: 50%; font-family: Georgia, serif; }
+    .category h3 { margin: 0 0 5px; font-size: 1.27rem; }
+    .category p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .boundary { padding: 27px; background: var(--ink); color: var(--paper); }
+    .boundary h3 { margin: 0 0 14px; font-size: 1.6rem; }
+    .boundary p { margin: 0 0 17px; color: #cbd2cd; font-size: .92rem; }
+    .boundary ul { margin: 0; padding: 0; list-style: none; }
+    .boundary li { padding: 11px 0; border-top: 1px solid #3b4645; color: #e9eee9; font-size: .9rem; }
+
+    .roadmap { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+    .roadmap::before { content: ""; height: 1px; background: var(--ink); position: absolute; top: 17px; left: 10px; right: 10px; }
+    .step { position: relative; padding: 52px 22px 0 0; }
+    .step:not(:first-child) { padding-left: 18px; border-left: 1px solid var(--line); }
+    .step-dot { position: absolute; top: 9px; left: 0; width: 17px; height: 17px; background: var(--yellow); border: 4px solid var(--paper); outline: 1px solid var(--ink); border-radius: 50%; }
+    .step:not(:first-child) .step-dot { left: -9px; }
+    .step small { color: var(--coral); text-transform: uppercase; letter-spacing: .1em; font-weight: 800; font-size: .68rem; }
+    .step h3 { margin: 9px 0 9px; font-size: 1.45rem; }
+    .step p { margin: 0; color: var(--muted); font-size: .9rem; }
+
+    .notes { display: grid; grid-template-columns: 1.1fr .9fr; gap: 18px; }
+    .note { padding: 27px; background: var(--white); border: 1px solid var(--line); }
+    .note.featured { background: var(--coral); color: #fff8f1; }
+    .note-tag { display: inline-block; margin-bottom: 23px; padding: 4px 8px; border: 1px solid currentColor; font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 800; }
+    .note h3 { margin: 0 0 12px; font-size: 1.8rem; }
+    .note p { margin: 0 0 21px; color: var(--muted); }
+    .featured p { color: #ffe6db; }
+    .note a { font-weight: 800; text-underline-offset: 4px; }
+    .filters { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+    .filter { cursor: pointer; padding: 7px 12px; border: 1px solid var(--line); background: transparent; color: var(--muted); font-size: .78rem; }
+    .filter.active, .filter:hover { background: var(--ink); border-color: var(--ink); color: var(--white); }
+    .note.hidden { display: none; }
+
+    footer { padding: 34px 0 42px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+    @media (max-width: 760px) {
+      .shell { width: min(100% - 30px, 580px); }
+      nav { gap: 13px; font-size: .78rem; }
+      .hero { padding: 60px 0 58px; display: block; }
+      .hero h1 { font-size: clamp(3.4rem, 17vw, 5rem); }
+      .signal { margin-top: 51px; }
+      .section { padding: 54px 0; }
+      .section-heading { display: block; }
+      .section-heading p { margin-top: 16px; }
+      .focus-grid, .map-layout, .notes { grid-template-columns: 1fr; }
+      .category-list { grid-template-columns: 1fr; }
+      .roadmap { display: block; margin-left: 8px; }
+      .roadmap::before { width: 1px; height: calc(100% - 20px); top: 10px; left: 0; right: auto; }
+      .step, .step:not(:first-child) { min-height: 128px; padding: 0 0 26px 36px; border: 0; }
+      .step-dot, .step:not(:first-child) .step-dot { left: -8px; top: 3px; }
+      .footer-inner { display: block; }
+      .footer-inner p:last-child { margin-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell nav">
+      <a class="wordmark" href="#top" aria-label="AI Field Notes home"><span class="mark" aria-hidden="true"></span>AI Field Notes</a>
+      <nav aria-label="Primary navigation">
+        <a href="#map">The map</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#notes">Notes</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="shell hero">
+      <div>
+        <p class="eyebrow">A personal learning journal · 2026</p>
+        <h1>Learning to think with machines.</h1>
+        <p class="hero-copy">A living field guide for building a useful understanding of artificial intelligence. <strong>Less hype, more first principles, small experiments, and honest notes about what I do not know yet.</strong></p>
+      </div>
+      <aside class="signal" aria-label="Current focus">
+        <p class="signal-label">Current focus</p>
+        <h2>From prompt to proof.</h2>
+        <p>Learning how to turn a vague idea into a testable workflow: define the task, choose a baseline, inspect the output, and measure what changed.</p>
+        <a class="text-link" href="#roadmap">See the path&nbsp; →</a>
+      </aside>
+    </section>
+
+    <section class="section" id="now">
+      <div class="shell">
+        <div class="section-heading">
+          <h2>What I am working on</h2>
+          <p>Three habits that make the subject durable instead of merely interesting.</p>
+        </div>
+        <div class="focus-grid">
+          <article class="focus-card"><span class="number">01 / FOUNDATIONS</span><h3>Make the vocabulary precise.</h3><p>Separate models, data, evaluation, interfaces, and deployment. Clear nouns make clearer questions.</p></article>
+          <article class="focus-card"><span class="number">02 / PRACTICE</span><h3>Build small, observable things.</h3><p>Prefer a notebook, script, or tiny product with a visible input and output over passive scrolling.</p></article>
+          <article class="focus-card"><span class="number">03 / JUDGEMENT</span><h3>Keep a healthy doubt.</h3><p>Record failure cases, check sources, and ask whether an AI system is the right tool for the job.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="map">
+      <div class="shell">
+        <div class="section-heading">
+          <h2>The map</h2>
+          <p>Core areas worth revisiting. They overlap; the point is orientation, not a checklist.</p>
+        </div>
+        <div class="map-layout">
+          <div class="category-list">
+            <article class="category"><span class="category-icon">∑</span><div><h3>Math & statistics</h3><p>Vectors, matrices, probability, distributions, gradients, and the language of uncertainty.</p></div></article>
+            <article class="category"><span class="category-icon">01</span><div><h3>Programming & data</h3><p>Python, data structures, SQL, notebooks, version control, and clean data pipelines.</p></div></article>
+            <article class="category"><span class="category-icon">◎</span><div><h3>Machine learning</h3><p>Supervised learning, representation, overfitting, optimization, and evaluation design.</p></div></article>
+            <article class="category"><span class="category-icon">✳</span><div><h3>Deep learning</h3><p>Neural networks, backpropagation, attention, embeddings, and the cost of computation.</p></div></article>
+            <article class="category"><span class="category-icon">文</span><div><h3>Language & generative AI</h3><p>Tokenization, context, retrieval, tool use, structured outputs, and quality checks.</p></div></article>
+            <article class="category"><span class="category-icon">↗</span><div><h3>Systems & shipping</h3><p>APIs, latency, monitoring, data privacy, access control, and maintainable interfaces.</p></div></article>
+            <article class="category"><span class="category-icon">?</span><div><h3>Evaluation & safety</h3><p>Benchmarks, red-teaming, bias, robustness, provenance, and the limits of automated scores.</p></div></article>
+            <article class="category"><span class="category-icon">⌁</span><div><h3>Human context</h3><p>Accessibility, labor, creativity, education, policy, and the people affected by a system.</p></div></article>
+          </div>
+          <aside class="boundary">
+            <h3>My quality bar</h3>
+            <p>Every project should answer these questions before it gets called “good”.</p>
+            <ul>
+              <li>What is the actual task?</li>
+              <li>What does success look like?</li>
+              <li>What is the baseline?</li>
+              <li>Where does it fail?</li>
+              <li>Who carries the risk?</li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <div class="shell">
+        <div class="section-heading">
+          <h2>A sensible order</h2>
+          <p>A loop, not a ladder. Return to earlier steps whenever a project exposes a gap.</p>
+        </div>
+        <div class="roadmap">
+          <article class="step"><span class="step-dot" aria-hidden="true"></span><small>Start here</small><h3>Foundations</h3><p>Learn Python, data handling, basic statistics, and the difference between training and inference.</p></article>
+          <article class="step"><span class="step-dot" aria-hidden="true"></span><small>Then</small><h3>Classical ML</h3><p>Build simple regressors and classifiers. Learn why a baseline and held-out data matter.</p></article>
+          <article class="step"><span class="step-dot" aria-hidden="true"></span><small>Go deeper</small><h3>Neural nets</h3><p>Train a small model and understand representations, loss, optimization, and generalization.</p></article>
+          <article class="step"><span class="step-dot" aria-hidden="true"></span><small>Make it useful</small><h3>Real systems</h3><p>Ship a narrow application with evaluation, monitoring, documentation, and a clear stop condition.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="notes">
+      <div class="shell">
+        <div class="section-heading">
+          <h2>Recent notes</h2>
+          <p>Short working hypotheses, not final answers. Updated as experiments earn confidence.</p>
+        </div>
+        <div class="filters" aria-label="Filter notes">
+          <button class="filter active" data-filter="all">All notes</button>
+          <button class="filter" data-filter="build">Build log</button>
+          <button class="filter" data-filter="read">Reading list</button>
+          <button class="filter" data-filter="think">Thinking out loud</button>
+        </div>
+        <div class="notes">
+          <article class="note featured" data-type="build"><span class="note-tag">Build log</span><h3>The smallest useful evaluation</h3><p>Before adding another feature to a language workflow, I am writing ten representative examples and a simple rubric. The aim is to see the shape of the problem before optimising the solution.</p><a href="#now">Read the working note&nbsp; →</a></article>
+          <article class="note" data-type="read"><span class="note-tag">Reading list</span><h3>Start with the primary sources</h3><p>My default shelf: official Python and NumPy documentation, scikit-learn’s user guide, PyTorch tutorials, and the Hugging Face course. The project decides which one belongs next.</p><a href="https://docs.python.org/3/" target="_blank" rel="noreferrer">Open the shelf&nbsp; →</a></article>
+          <article class="note" data-type="think"><span class="note-tag">Thinking out loud</span><h3>Capability is not reliability</h3><p>A fluent answer can still be wrong, incomplete, or poorly matched to the task. I want every impressive demo paired with a way to make it fail visibly.</p><a href="#map">Keep the question&nbsp; →</a></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner"><p>AI Field Notes · A personal blog in progress.</p><p>Built with plain HTML, CSS, and curiosity.</p></div>
+  </footer>
+  <script>
+    const filters = document.querySelectorAll('.filter');
+    const notes = document.querySelectorAll('.note');
+    filters.forEach((filter) => {
+      filter.addEventListener('click', () => {
+        filters.forEach((item) => item.classList.remove('active'));
+        filter.classList.add('active');
+        const selected = filter.dataset.filter;
+        notes.forEach((note) => note.classList.toggle('hidden', selected !== 'all' && note.dataset.type !== selected));
+      });
+    });
+  </script>
+</body>
+</html>
