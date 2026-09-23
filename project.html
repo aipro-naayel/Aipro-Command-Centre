@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="University project proposal for an AI-assisted carpooling app: a privacy-aware system for matching riders and drivers, planning journeys, and evaluating safety and usefulness.">
+  <meta name="keywords" content="AI carpooling app, university AI project, intelligent transport, ride matching, privacy-aware machine learning, carpooling system design">
+  <meta property="og:title" content="AI-Assisted Carpooling | University Project">
+  <meta property="og:description" content="A proposed AI-assisted carpooling platform for university communities, with system architecture, evaluation criteria, and future enhancements.">
+  <meta property="og:type" content="article">
+  <title>AI-Assisted Carpooling | University Project</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "AI-Assisted Carpooling: University Project Proposal",
+    "description": "A proposed privacy-aware AI carpooling platform for university communities, including system design, evaluation criteria, and future work.",
+    "about": ["Artificial intelligence", "Carpooling", "Intelligent transportation systems", "Human-centered design"],
+    "inLanguage": "en",
+    "keywords": "AI carpooling, ride matching, university project, privacy-aware AI",
+    "isAccessibleForFree": true,
+    "author": { "@type": "Person", "name": "AI Field Notes project author" },
+    "articleSection": ["Project brief", "System architecture", "Evaluation plan", "Future enhancements"]
+  }
+  </script>
+  <style>
+    :root { --ink: #172022; --muted: #657276; --paper: #f6f4ee; --white: #fffdf8; --line: #d9ddd5; --coral: #d9644f; --coral-soft: #f2d7cd; --teal: #16736f; --teal-soft: #d7e9e4; --yellow: #e8bd52; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.55; }
+    a { color: inherit; }
+    .shell { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+    header { padding: 24px 0 20px; border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .wordmark { display: flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 800; letter-spacing: -.03em; }
+    .mark { width: 26px; height: 26px; border-radius: 50% 50% 50% 8px; background: var(--coral); transform: rotate(-12deg); position: relative; }
+    .mark::after { content: ""; position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--paper); top: 8px; left: 9px; }
+    nav { display: flex; gap: 24px; color: var(--muted); font-size: .9rem; font-weight: 650; }
+    nav a { text-decoration: none; }
+    nav a:hover, nav a:focus { color: var(--coral); }
+    h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; letter-spacing: -.045em; line-height: 1.05; }
+    h1 { max-width: 850px; margin: 0 0 26px; font-size: clamp(3rem, 7vw, 6rem); }
+    h2 { margin: 0; font-size: clamp(2.2rem, 4vw, 3.6rem); }
+    h3 { margin: 0 0 10px; font-size: 1.45rem; }
+    .hero { padding: 78px 0 70px; }
+    .eyebrow, .label { color: var(--coral); text-transform: uppercase; letter-spacing: .14em; font-weight: 800; font-size: .72rem; }
+    .eyebrow { margin: 0 0 18px; }
+    .lede { max-width: 760px; color: var(--muted); font-size: 1.15rem; }
+    .lede strong { color: var(--ink); }
+    .status-row { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 29px; }
+    .status { padding: 7px 11px; border: 1px solid var(--ink); font-size: .75rem; font-weight: 750; }
+    .status.proposed { background: var(--yellow); }
+    .section { padding: 67px 0; border-top: 1px solid var(--line); }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 25px; margin-bottom: 31px; }
+    .section-head p { max-width: 410px; margin: 0; color: var(--muted); }
+    .intro-grid, .review-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; }
+    .prose p { max-width: 690px; margin: 0 0 17px; color: var(--muted); }
+    .principles { display: grid; gap: 12px; }
+    .principle { padding: 17px 0 17px 20px; border-left: 3px solid var(--teal); }
+    .principle h3 { margin-bottom: 5px; font-size: 1.2rem; }
+    .principle p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .schema-wrap { padding: 25px; background: var(--ink); color: var(--paper); overflow-x: auto; }
+    .schema-wrap .label { color: var(--yellow); }
+    .schema { min-width: 700px; display: grid; grid-template-columns: 1fr 44px 1fr 44px 1fr; align-items: center; gap: 10px; margin-top: 21px; }
+    .node { min-height: 112px; padding: 17px; border: 1px solid #71827d; background: #24302f; }
+    .node strong { display: block; margin-bottom: 7px; font-family: Georgia, serif; font-size: 1.1rem; }
+    .node span { color: #cbd2cd; font-size: .8rem; }
+    .arrow { color: var(--yellow); text-align: center; font-size: 1.5rem; }
+    .schema-note { margin: 20px 0 0; color: #cbd2cd; font-size: .82rem; }
+    .feature-grid, .metric-grid, .future-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .feature, .metric, .future { padding: 24px; background: var(--white); border: 1px solid var(--line); }
+    .feature:nth-child(2), .future:nth-child(2) { background: var(--teal-soft); }
+    .feature:nth-child(3), .future:nth-child(3) { background: var(--coral-soft); }
+    .feature p, .metric p, .future p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .feature .label, .metric .label, .future .label { display: block; margin-bottom: 22px; }
+    .workflow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; position: relative; }
+    .workflow::before { content: ""; position: absolute; top: 15px; left: 12px; right: 12px; height: 1px; background: var(--ink); }
+    .phase { position: relative; padding: 48px 16px 0 0; }
+    .phase:not(:first-child) { padding-left: 16px; border-left: 1px solid var(--line); }
+    .phase-dot { position: absolute; top: 7px; left: 0; width: 17px; height: 17px; border: 4px solid var(--paper); outline: 1px solid var(--ink); border-radius: 50%; background: var(--yellow); }
+    .phase:not(:first-child) .phase-dot { left: -9px; }
+    .phase h3 { font-size: 1.3rem; }
+    .phase p { margin: 0; color: var(--muted); font-size: .86rem; }
+    .review-box { padding: 26px; background: var(--coral); color: #fff8f1; }
+    .review-box h3 { font-size: 1.65rem; }
+    .review-box p { margin: 0 0 18px; color: #ffe6db; }
+    .review-box ul { margin: 0; padding: 0; list-style: none; }
+    .review-box li { padding: 10px 0; border-top: 1px solid rgba(255,255,255,.35); font-size: .9rem; }
+    .review-box li::before { content: "✓"; margin-right: 9px; color: var(--yellow); font-weight: 800; }
+    .metric strong { display: block; margin-bottom: 7px; font-family: Georgia, serif; font-size: 1.35rem; }
+    .closing { padding: 53px 0 70px; }
+    .closing-inner { padding: 33px; background: var(--teal); color: #f4fbf7; }
+    .closing h2 { max-width: 680px; margin-bottom: 13px; }
+    .closing p { max-width: 680px; margin: 0; color: #d7e9e4; }
+    footer { padding: 34px 0 42px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+    @media (max-width: 780px) {
+      .shell { width: min(100% - 30px, 590px); }
+      nav { gap: 13px; font-size: .78rem; }
+      .hero { padding: 56px 0 52px; }
+      .section { padding: 52px 0; }
+      .section-head, .intro-grid, .review-grid { display: block; }
+      .section-head p { margin-top: 16px; }
+      .principles, .review-box { margin-top: 30px; }
+      .feature-grid, .metric-grid, .future-grid { grid-template-columns: 1fr; }
+      .workflow { display: block; margin-left: 8px; }
+      .workflow::before { width: 1px; height: calc(100% - 20px); top: 10px; left: 0; right: auto; }
+      .phase, .phase:not(:first-child) { min-height: 120px; padding: 0 0 25px 36px; border: 0; }
+      .phase-dot, .phase:not(:first-child) .phase-dot { left: -8px; top: 3px; }
+      .footer-inner { display: block; }
+      .footer-inner p:last-child { margin-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell nav">
+      <a class="wordmark" href="index.html"><span class="mark" aria-hidden="true"></span>AI Field Notes</a>
+      <nav aria-label="Project navigation"><a href="index.html">Journal</a><a href="#schema">Schema</a><a href="#evaluation">Review plan</a><a href="#future">Future work</a></nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="shell hero">
+      <p class="eyebrow">University project · proposal and research log</p>
+      <h1>AI-assisted carpooling for university communities.</h1>
+      <p class="lede"><strong>A proposed web and mobile experience for making shared journeys easier to discover, coordinate, and evaluate.</strong> The project explores how responsible AI can support ride matching without turning personal mobility data into a black box.</p>
+      <div class="status-row"><span class="status proposed">Design proposal</span><span class="status">Peer review ready</span><span class="status">Future work documented</span></div>
+    </section>
+
+    <section class="section" id="brief">
+      <div class="shell">
+        <div class="section-head"><h2>Project brief</h2><p>A clear problem statement keeps the technology in service of people, not the other way around.</p></div>
+        <div class="intro-grid">
+          <div class="prose"><p>University travel often involves repeated routes, changing timetables, and limited information about who is willing to share a journey. This project proposes a carpooling platform where verified community members can offer or request seats and receive explainable match suggestions.</p><p>The AI component is deliberately narrow: rank compatible journey options using stated preferences, route overlap, time windows, and available capacity. The system should assist a user's decision, while leaving acceptance, contact, and travel arrangements under human control.</p><p>This is a proposed architecture and evaluation plan. Claims about performance, safety, adoption, carbon reduction, or cost should only be made after data collection and testing.</p></div>
+          <div class="principles">
+            <article class="principle"><h3>Useful before clever</h3><p>A strong baseline and a simple interface come before complex models.</p></article>
+            <article class="principle"><h3>Consent by design</h3><p>Collect only what is needed, explain why it is needed, and provide controls for visibility.</p></article>
+            <article class="principle"><h3>Human decision-making</h3><p>Recommendations support a choice; they never silently make a travel or safety decision.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="schema">
+      <div class="shell">
+        <div class="section-head"><h2>System schema</h2><p>A high-level data and service flow for a first research prototype.</p></div>
+        <div class="schema-wrap">
+          <span class="label">Proposed architecture</span>
+          <div class="schema" role="img" aria-label="User interface connects to a journey service, which connects to a matching and evaluation layer">
+            <div class="node"><strong>Community interface</strong><span>Offer a seat, request a ride, set preferences, review a suggestion.</span></div><div class="arrow">→</div>
+            <div class="node"><strong>Journey service</strong><span>Validate input, manage consent, store minimal journey and availability records.</span></div><div class="arrow">→</div>
+            <div class="node"><strong>Matching layer</strong><span>Filter constraints, rank compatible options, return reasons and uncertainty.</span></div>
+          </div>
+          <p class="schema-note">Supporting services: authentication, notifications, moderation, audit logging, and an evaluation dataset with identifiers removed or controlled.</p>
+        </div>
+        <div class="feature-grid" style="margin-top: 15px;">
+          <article class="feature"><span class="label">Input</span><h3>Stated constraints</h3><p>Origin area, destination area, time window, seats, accessibility needs, and ride preferences. Exact addresses should be avoided until necessary.</p></article>
+          <article class="feature"><span class="label">Decision</span><h3>Explainable ranking</h3><p>Return match factors such as route overlap, time fit, and available capacity, rather than presenting an unexplained score.</p></article>
+          <article class="feature"><span class="label">Output</span><h3>Human confirmation</h3><p>Show a shortlist, let people compare options, and require explicit consent before sharing contact or trip details.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="shell">
+        <div class="section-head"><h2>Development workflow</h2><p>A staged route from evidence to prototype to reviewable results.</p></div>
+        <div class="workflow">
+          <article class="phase"><span class="phase-dot" aria-hidden="true"></span><span class="label">01 · Discover</span><h3>Map the need</h3><p>Interview intended users, identify journeys, risks, and access needs.</p></article>
+          <article class="phase"><span class="phase-dot" aria-hidden="true"></span><span class="label">02 · Define</span><h3>Set the baseline</h3><p>Write matching rules, success measures, consent flows, and out-of-scope cases.</p></article>
+          <article class="phase"><span class="phase-dot" aria-hidden="true"></span><span class="label">03 · Prototype</span><h3>Build narrowly</h3><p>Create the interface and a transparent rule-based matcher before testing AI variants.</p></article>
+          <article class="phase"><span class="phase-dot" aria-hidden="true"></span><span class="label">04 · Evaluate</span><h3>Test the trade-offs</h3><p>Compare quality, fairness, privacy, usability, latency, and failure cases.</p></article>
+          <article class="phase"><span class="phase-dot" aria-hidden="true"></span><span class="label">05 · Report</span><h3>Make it reviewable</h3><p>Publish methods, limitations, sample definitions, and what remains unproven.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="evaluation">
+      <div class="shell">
+        <div class="section-head"><h2>Peer review plan</h2><p>Evidence that can support a credible university submission rather than a polished demo alone.</p></div>
+        <div class="review-grid">
+          <div class="metric-grid">
+            <article class="metric"><span class="label">Matching quality</span><strong>Relevance</strong><p>Do users find the suggested rides compatible with their stated constraints?</p></article>
+            <article class="metric"><span class="label">Experience</span><strong>Task success</strong><p>Can a participant offer or request a journey without confusion or avoidable friction?</p></article>
+            <article class="metric"><span class="label">Responsibility</span><strong>Data minimisation</strong><p>Is each collected field justified, protected, and removable by the user?</p></article>
+            <article class="metric"><span class="label">Fairness</span><strong>Coverage</strong><p>Do suggestions work across different schedules, locations, and access needs?</p></article>
+            <article class="metric"><span class="label">Operations</span><strong>Reliability</strong><p>How does the service behave with missing data, no match, or stale availability?</p></article>
+            <article class="metric"><span class="label">Trust</span><strong>Explainability</strong><p>Can a participant understand why an option appeared and challenge it?</p></article>
+          </div>
+          <aside class="review-box"><h3>Questions for reviewers</h3><p>Invite criticism around the system's assumptions, not only its visual finish.</p><ul><li>Is AI necessary for the proposed task?</li><li>Are the inputs proportionate to the benefit?</li><li>What is the safest no-match experience?</li><li>Which users are underrepresented?</li><li>What evidence would change the design?</li></ul></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="future">
+      <div class="shell">
+        <div class="section-head"><h2>Future enhancement workflow</h2><p>Potential directions after the core prototype has evidence, consent, and a measurable baseline.</p></div>
+        <div class="future-grid">
+          <article class="future"><span class="label">Next</span><h3>Better availability</h3><p>Explore calendar integrations only with explicit permission, clear revocation, and a strong reason to use them.</p></article>
+          <article class="future"><span class="label">Later</span><h3>Personalised ranking</h3><p>Test whether preference-aware ranking improves usefulness without creating unfair exclusion or opaque decisions.</p></article>
+          <article class="future"><span class="label">Research</span><h3>Privacy-preserving learning</h3><p>Investigate aggregation or on-device approaches if the project eventually needs learning from repeated interactions.</p></article>
+          <article class="future"><span class="label">Community</span><h3>Trust and moderation</h3><p>Design reporting, verification, reputation, and escalation with user research rather than assuming ratings solve safety.</p></article>
+          <article class="future"><span class="label">Sustainability</span><h3>Impact measurement</h3><p>Measure occupancy and avoided journeys carefully; do not claim environmental benefit without a defined comparison.</p></article>
+          <article class="future"><span class="label">Scale</span><h3>Service resilience</h3><p>Plan for stale data, outages, abuse, and changing university policies before expanding beyond a pilot.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell closing"><div class="closing-inner"><h2>A credible project is allowed to have limits.</h2><p>The ambition is to make shared university travel easier to explore while making every assumption visible. The next step is not to promise an intelligent city; it is to test one narrow journey workflow with care.</p></div></section>
+  </main>
+  <footer><div class="shell footer-inner"><p>AI Field Notes · University project page.</p><p><a href="index.html">Back to the learning journal</a></p></div></footer>
+</body>
+</html>
